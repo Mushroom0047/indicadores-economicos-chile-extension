@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Indicadores Económicos",
+    "version": "1.0",
+    "description": "Muestra los valores de UF, Dólar, IPC y UTM",
+    "permissions": ["activeTab"],
+    "action": {
+      "default_popup": "popup.html"
+      }
+  }
+  

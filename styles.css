@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+:root{
+  --c-primary: #3BBA9C;
+  --c-secundary: #2E3047;
+  --c-white: #fff;
+  --c-background: #3C3F58;
+}
+
+body {
+    width: 250px;
+    padding: 10px;
+    background-color: var(--c-background);
+  }
+
+.titulo-ext{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.titulo-ext h1{
+  color: var(--c-primary);
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+}
+.info{
+  font-family: monospace;
+  color: var(--c-white);
+}
+.container{
+  background-color: var(--c-secundary);
+  color: var(--c-white);
+  padding: 5px 10px;
+}
+.container-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+.copy-button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.copied-text{
+  display: none;
+  color: var(--c-primary);
+}
+
+.dev{
+  text-align: center;
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--c-white);
+}
+
+.developed-by {
+  background-color: var(--c-secundary);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  padding: 5px;
+  align-items: center;
+}
+
+.div__coffe {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: right;
+}
+
+.div__coffe a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--c-white);
+  text-align: left;
+  font-size: 12px;
+}
+.div__coffe img {
+  width: 30px;
+  height: 30px;
+}
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+  z-index: 1000; /* Asegura que esté en la parte superior */
+  display: none;
+}
+.data-error{
+  background-color: var(--c-secundary);
+  color: var(--c-white);
+  padding: 5px 10px;
+  display: none;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.loader {
+  border: 4px solid var(--c-primary); /* Color del loader */
+  border-top: 4px solid transparent; /* Parte superior transparente para el efecto de giro */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite; /* Animación de giro */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*CSS ICON*/
+.gg-copy {
+  color: var(--c-primary);
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs,1));
+  width: 14px;
+  height: 18px;
+  border: 2px solid;
+  margin-left: -5px;
+  margin-top: -4px
+  }
+ 
+  .gg-copy::after,
+  .gg-copy::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute
+  }
+ 
+  .gg-copy::before {
+  background:
+  linear-gradient( to left,
+  currentColor 5px, transparent 0)
+  no-repeat right top/5px 2px,
+  linear-gradient( to left,
+  currentColor 5px, transparent 0)
+  no-repeat left bottom/ 2px 5px;
+  box-shadow: inset -4px -4px 0 -2px;
+  bottom: -6px;
+  right: -6px;
+  width: 14px;
+  height: 18px
+  }
+ 
+  .gg-copy::after {
+  width: 6px;
+  height: 2px;
+  background: currentColor;
+  left: 2px;
+  top: 2px;
+  box-shadow: 0 4px 0,0 8px 0
+  } 
+  .gg-plug {
+    color: var(--c-primary);
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    transform: scale(var(--ggs,1));
+    width: 12px;
+    height: 20px
+   }
+   
+   .gg-plug::after,
+   .gg-plug::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute
+   }
+   
+   .gg-plug::before {
+    width: 12px;
+    height: 10px;
+    border: 2px solid;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    top: 5px
+   }
+   
+   .gg-plug::after {
+    width: 2px;
+    height: 4px;
+    background: currentColor;
+    left: 2px;
+    border-radius: 22px;
+    box-shadow:
+    6px 0 0,
+    3px 14px 0,
+    3px 16px 0
+   } 
