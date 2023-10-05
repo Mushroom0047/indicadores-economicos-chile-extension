@@ -1,11 +1,21 @@
 {
     "manifest_version": 3,
-    "name": "Indicadores Económicos",
-    "version": "1.0",
+    "author": "Mu$hrooM",
+    "name": "Indicadores Económicos Chile",
+    "version": "1.0.0",
     "description": "Muestra los valores de UF, Dólar, IPC y UTM",
-    "permissions": ["activeTab"],
     "action": {
-      "default_popup": "popup.html"
-      }
+      "default_popup": "popup.html",
+      "default_title": "Indicadores Económicos Chile",
+      "default_icon": {
+        "16": "/images/Icono Ind eco Chile 16.png",
+        "32": "/images/Icono Ind eco Chile 32.png",
+        "48": "/images/Icono Ind eco Chile 48.png",
+        "128": "/images/Icono Ind eco Chile 128.png"
+        }
+      },
+      "background": {
+          "service_worker": "bg.js"
+        }
   }
   
