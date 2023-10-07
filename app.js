@@ -5,7 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
   loaderContainer.style.display = "flex";
 
     const url = "https://mindicador.cl/api";
+    let ufData = [];
+    let dolarData = [];
+    let euroData = [];
+    let ipcData = [];
+    let utmData = [];
 
+    // Obtener valores
     fetch(url)
       .then((response) => response.json())
       .then((data) => {     
@@ -24,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Ocultar el loader en caso de error
       loaderContainer.style.display = "none";
       });
+      //Obtener valores historicos
+
   });
   
 
@@ -86,3 +94,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let fechaFormateada = `${dia}-${mes}-${año}`;
     return(fechaFormateada);
   }
+
+  //Gráficos
+  const ctx = document.getElementById('myChart');
+
+  function generateCharts(labels=[], data=[]){
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '# of Votes',
+          data: data,
+          borderWidth: 1,
+          borderColor: 'rgb(59, 186, 156)',
+          backgroundColor: 'rgb(59, 186, 156)',
+        }]
+      }
+    });
+  }
+
+  

@@ -12,52 +12,77 @@
         <h1>Indicadores Económicos Chile</h1>
         <img width="42" height="42" src="https://img.icons8.com/fluency/48/chile-circular.png" alt="chile-circular" />
     </div>
-    <p class="info">Valores corresponden a la fecha <span id="data-date"></span> </p>
     <hr>
     <div class="loader-container">
         <div class="loader"></div>
         <p>Cargando datos...</p>
       </div>
     <div class="data-error"><p>Error al obtener datos</p><i class="gg-plug"></i></div>
-    <div class="container">
-        <div class="container-buttons">
-            <h3 id="uf"></h3>
-            <button class="copy-button">
-                <i class="gg-copy"></i>
-                <span class="copied-text">Copiado!</span>
-            </button>
+    
+    <!--TABS-->
+    <div class="tabs">
+        <button class="tablinks" id="tabValues">Valores</button>
+        <button class="tablinks" id="tabCharts">Gráficos</button>
+      </div>
+    
+      <!-- Contenido de las pestañas -->
+      <div class="tabcontent" id="valuesTab">
+        <div class="container">
+            <div class="container-buttons">
+                <h3 id="uf"></h3>
+                <button class="copy-button">
+                    <i class="gg-copy"></i>
+                    <span class="copied-text">Copiado!</span>
+                </button>
+            </div>
+            <div class="container-buttons">
+                <h3 id="dolar"></h3>
+                <button class="copy-button">
+                    <i class="gg-copy"></i>
+                    <span class="copied-text">Copiado!</span>
+                </button>
+            </div>
+            <div class="container-buttons">
+                <h3 id="euro"></h3>
+                <button class="copy-button">
+                    <i class="gg-copy"></i>
+                    <span class="copied-text">Copiado!</span>
+                </button>
+            </div>
+            <div class="container-buttons">
+                <h3 id="ipc"></h3>
+                <button class="copy-button">
+                    <i class="gg-copy"></i>
+                    <span class="copied-text">Copiado!</span>
+                </button>
+            </div>
+            <div class="container-buttons">
+                <h3 id="utm"></h3>
+                <button class="copy-button">
+                    <i class="gg-copy"></i>
+                    <span class="copied-text">Copiado!</span>
+                </button>
+            </div>
         </div>
-        <div class="container-buttons">
-            <h3 id="dolar"></h3>
-            <button class="copy-button">
-                <i class="gg-copy"></i>
-                <span class="copied-text">Copiado!</span>
-            </button>
+      </div>
+    
+      <div class="tabcontent" id="chartsTab">
+        <div class="container-graficos">
+            <select id="currencySelector">
+                <option value="UF">UF</option>
+                <option value="Dolar">Dólar</option>
+                <option value="Euro">Euro</option>
+                <option value="IPC">IPC</option>
+                <option value="UTM">UTM</option>
+              </select>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+    
         </div>
-        <div class="container-buttons">
-            <h3 id="euro"></h3>
-            <button class="copy-button">
-                <i class="gg-copy"></i>
-                <span class="copied-text">Copiado!</span>
-            </button>
-        </div>
-        <div class="container-buttons">
-            <h3 id="ipc"></h3>
-            <button class="copy-button">
-                <i class="gg-copy"></i>
-                <span class="copied-text">Copiado!</span>
-            </button>
-        </div>
-        <div class="container-buttons">
-            <h3 id="utm"></h3>
-            <button class="copy-button">
-                <i class="gg-copy"></i>
-                <span class="copied-text">Copiado!</span>
-            </button>
-        </div>
-    </div>
+      </div>
     <hr>
-        <div class="info-datos"></div>
+    <p class="info">Valores corresponden a la fecha <span id="data-date"></span> </p>
         <div class="developed-by">
             <div>
                 <a href="https://hectorvaldesm.com/" target="_blank" class="dev">Developed by 🍄</a>
@@ -66,6 +91,8 @@
                 <a href='https://ko-fi.com/G2G33MGN8' target='_blank' ><img src="/images/kofi_p_logo_nolabel.png" width="30px" height="30px"/>Buy me a Coffe</a>
             </div>
         </div>
+        <script src="tabsControl.js"></script>
+        <script src="chart.js"></script>
     <script src="app.js"></script>
 </body>
 
