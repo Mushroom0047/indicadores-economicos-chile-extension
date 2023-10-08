@@ -75,12 +75,11 @@ async function fetchData(url, dataArray, currency) {
   function prepareArrays(arr, currency){
     const tempDateArr = arr[0].serie.map(item => convertDate(item.fecha));  
     const tempValueArr = arr[0].serie.map(item => item.valor); 
-    tempDateArr.sort(compararFechas);
     
     const labelsForChart = tempDateArr.slice(0, 7);
     const dataForChart = tempValueArr.slice(0, 7);
     
-    generateCharts(labelsForChart, dataForChart, `Valor de ${currency}`);
+    generateCharts(labelsForChart.reverse(), dataForChart.reverse(), `Valor de ${currency}`);
   }
   const ctx = document.getElementById('myChart'); // Reemplaza 'myChart' con el ID de tu canvas
 
@@ -134,19 +133,4 @@ function generateCharts(labels = [], data = [], title) {
     // Formatear la fecha en "dd-mm-AAAA"
     let fechaFormateada = `${dia}-${mes}-${año}`;
     return(fechaFormateada);
-  }
-
-  function compararFechas(a, b) {
-    // Convierte las cadenas de fecha en objetos Date para que puedas compararlas
-    var fechaA = new Date(a);
-    var fechaB = new Date(b);
-  
-    // Compara las fechas y devuelve el resultado de la comparación
-    if (fechaA < fechaB) {
-      return -1;
-    } else if (fechaA > fechaB) {
-      return 1;
-    } else {
-      return 0;
-    }
   }
