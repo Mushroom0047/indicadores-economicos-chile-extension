@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => {
         console.error("Error al obtener datos:", error);
         document.querySelector(".container").style.display = "none";
-        document.querySelector(".data-error-values").style.display = "flex";
+        document.querySelector("#data-error-values").style.display = "flex";
         // Ocultar el loader en caso de error
       loaderContainer.style.display = "none";
       });

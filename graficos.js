@@ -1,8 +1,5 @@
-const ufUrl = 'https://mindicador.cl/api/uf';
-const dolarUrl = 'https://mindicador.cl/api/dolar';
-const euroUrl = 'https://mindicador.cl/api/euro';
-const ipcUrl = 'https://mindicador.cl/api/ipc';
-const utmUrl = 'https://mindicador.cl/api/utm';
+const urlApi = "https://mindicador.cl/api/";
+const currencys = ['uf', 'dolar', 'euro', 'ipc', 'utm'];
 
 const ufData = [];
 const dolarData = [];
@@ -12,7 +9,7 @@ const utmData = [];
 const currencySelector = document.getElementById("currencySelector");
 
 document.addEventListener("DOMContentLoaded", function () {
-    fetchData(ufUrl, ufData, 'UF');
+    fetchData(urlApi+currencys[0], ufData, 'UF');
 });
 
 
@@ -21,14 +18,14 @@ currencySelector.addEventListener("change", function () {
   switch (selectedValue) {
     case "UF":
         if(ufData.length == 0){
-            fetchData(ufUrl, ufData, 'UF');
+            fetchData(urlApi+currencys[0], ufData, 'UF');
         }else{
             prepareArrays(ufData, 'UF');
         }
       break;
     case "Dolar":    
         if(dolarData.length == 0){
-            fetchData(dolarUrl, dolarData, 'Dólar');
+            fetchData(urlApi+currencys[1], dolarData, 'Dólar');
         }else{
             prepareArrays(dolarData, 'Dólar');
         }
@@ -36,21 +33,21 @@ currencySelector.addEventListener("change", function () {
       break;
     case "Euro":
         if(euroData.length == 0){
-            fetchData(euroUrl, euroData, 'Euro');
+            fetchData(urlApi+currencys[2], euroData, 'Euro');
         }else{
             prepareArrays(euroData, 'Euro');
         }
       break;
     case "IPC":
         if(ipcData.length == 0){
-            fetchData(ipcUrl,ipcData, 'IPC');
+            fetchData(urlApi+currencys[3],ipcData, 'IPC');
         }else{
             prepareArrays(ipcData, 'IPC');
         }
       break;
     case "UTM":
         if(utmData.length == 0){
-            fetchData(utmUrl, utmData, 'UTM');
+            fetchData(urlApi+currencys[4], utmData, 'UTM');
         }else{
             prepareArrays(utmData, 'UTM');
         }
@@ -66,20 +63,24 @@ async function fetchData(url, dataArray, currency) {
       const data = await response.json();
       dataArray.push(data);
       prepareArrays(dataArray, currency);
-      
+      document.querySelector(".container-canvas").style.display = "block";
+      document.querySelector("#data-error-chart").style.display = "none";
     } catch (error) {
       console.error(error);
+      document.querySelector(".container-canvas").style.display = "none";
+      document.querySelector("#data-error-chart").style.display = "flex";
     }
   }
 
   function prepareArrays(arr, currency){
     const tempDateArr = arr[0].serie.map(item => convertDate(item.fecha));  
     const tempValueArr = arr[0].serie.map(item => item.valor); 
+    tempDateArr.sort(compararFechas);
     
     const labelsForChart = tempDateArr.slice(0, 7);
     const dataForChart = tempValueArr.slice(0, 7);
     
-    generateCharts(labelsForChart, dataForChart, `Valor del ${currency}`);
+    generateCharts(labelsForChart, dataForChart, `Valor de ${currency}`);
   }
   const ctx = document.getElementById('myChart'); // Reemplaza 'myChart' con el ID de tu canvas
 
@@ -90,15 +91,15 @@ function generateCharts(labels = [], data = [], title) {
   if (myChart) {
     myChart.data.labels = labels;
     myChart.data.datasets[0].data = data;
-    myChart.options.title.text = '# ' + title;
-    myChart.update(); // Actualiza el gráfico con los nuevos datos
+    myChart.data.datasets[0].label = title;
+    myChart.update();
   } else {
     myChart = new Chart(ctx, {
-      type: 'line',
+      type: 'line',    
       data: {
         labels: labels,
         datasets: [{
-          label: '# ' + title,
+          label: title,
           data: data,
           borderWidth: 1,
           borderColor: 'rgb(59, 186, 156)',
@@ -106,11 +107,19 @@ function generateCharts(labels = [], data = [], title) {
         }]
       },
       options: {
-        title: {
-          display: true,
-          text: '# ' + title,
+        scales: {
+            x: {
+                ticks: {
+                    color: '#fff',
+                }
+            },
+            y: {
+                ticks: {
+                    color: '#fff',
+                }
+            }
         }
-      }
+    }
     });
   }
 }
@@ -125,4 +134,19 @@ function generateCharts(labels = [], data = [], title) {
     // Formatear la fecha en "dd-mm-AAAA"
     let fechaFormateada = `${dia}-${mes}-${año}`;
     return(fechaFormateada);
+  }
+
+  function compararFechas(a, b) {
+    // Convierte las cadenas de fecha en objetos Date para que puedas compararlas
+    var fechaA = new Date(a);
+    var fechaB = new Date(b);
+  
+    // Compara las fechas y devuelve el resultado de la comparación
+    if (fechaA < fechaB) {
+      return -1;
+    } else if (fechaA > fechaB) {
+      return 1;
+    } else {
+      return 0;
+    }
   }

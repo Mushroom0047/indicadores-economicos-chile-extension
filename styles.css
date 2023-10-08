@@ -61,6 +61,7 @@ body {
   grid-template-rows: 1fr;
   padding: 5px;
   align-items: center;
+  text-align: center;
 }
 
 .div__coffe {
