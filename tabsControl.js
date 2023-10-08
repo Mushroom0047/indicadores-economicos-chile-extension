@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Función para cambiar de pestaña
-    function openTab(evt, tabName) {
-        console.log(evt);
+    function openTab(evt, tabName) {    
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName('tabcontent');
       for (i = 0; i < tabcontent.length; i++) {

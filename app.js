@@ -3,14 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Mostrar el loader mientras se cargan los datos
   loaderContainer.style.display = "flex";
-
     const url = "https://mindicador.cl/api";
-    let ufData = [];
-    let dolarData = [];
-    let euroData = [];
-    let ipcData = [];
-    let utmData = [];
-
     // Obtener valores
     fetch(url)
       .then((response) => response.json())
@@ -26,11 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => {
         console.error("Error al obtener datos:", error);
         document.querySelector(".container").style.display = "none";
-        document.querySelector(".data-error").style.display = "flex";
+        document.querySelector(".data-error-values").style.display = "flex";
         // Ocultar el loader en caso de error
       loaderContainer.style.display = "none";
       });
-      //Obtener valores historicos
 
   });
   
@@ -51,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return formatoPesos.format(valor);
   }
 
+  //Botones para copiar datos
   const copyButtons = document.querySelectorAll(".copy-button");
   copyButtons.forEach((button) => {
     button.addEventListener("click", function () {
@@ -80,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    // alert("Texto copiado al portapapeles: " + text);
   }
 
   function convertDate(date){
@@ -94,24 +86,3 @@ document.addEventListener("DOMContentLoaded", function () {
     let fechaFormateada = `${dia}-${mes}-${año}`;
     return(fechaFormateada);
   }
-
-  //Gráficos
-  const ctx = document.getElementById('myChart');
-
-  function generateCharts(labels=[], data=[]){
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: '# of Votes',
-          data: data,
-          borderWidth: 1,
-          borderColor: 'rgb(59, 186, 156)',
-          backgroundColor: 'rgb(59, 186, 156)',
-        }]
-      }
-    });
-  }
-
-  

@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "author": "Mu$hrooM",
     "name": "Indicadores Económicos Chile",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "description": "Muestra los valores de UF, Dólar, IPC y UTM",
     "action": {
       "default_popup": "popup.html",

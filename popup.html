@@ -16,9 +16,7 @@
     <div class="loader-container">
         <div class="loader"></div>
         <p>Cargando datos...</p>
-      </div>
-    <div class="data-error"><p>Error al obtener datos</p><i class="gg-plug"></i></div>
-    
+    </div>
     <!--TABS-->
     <div class="tabs">
         <button class="tablinks" id="tabValues">Valores</button>
@@ -27,6 +25,7 @@
     
       <!-- Contenido de las pestañas -->
       <div class="tabcontent" id="valuesTab">
+        <div id="data-error-values" class="data-error"><p>Error al obtener datos</p><i class="gg-plug"></i></div>
         <div class="container">
             <div class="container-buttons">
                 <h3 id="uf"></h3>
@@ -67,6 +66,7 @@
       </div>
     
       <div class="tabcontent" id="chartsTab">
+        <div id="data-error-chart" class="data-error"><p>Error al obtener datos</p><i class="gg-plug"></i></div>
         <div class="container-graficos">
             <select id="currencySelector">
                 <option value="UF">UF</option>
@@ -93,6 +93,7 @@
         </div>
         <script src="tabsControl.js"></script>
         <script src="chart.js"></script>
+        <script src="graficos.js"></script>
     <script src="app.js"></script>
 </body>
 
