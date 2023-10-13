@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const data = await response.json();
-            // Realiza el resto de las operaciones con los datos obtenidos
             Uf = data.uf;
             Euro = data.euro;
             Dolar = data.dolar;
@@ -20,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currency = Uf;
 
             fillData(Uf);
+
         } catch (error) {
             console.error("Error al obtener datos:", error);
             document.querySelector(".container-convert").style.display = "none";
@@ -30,43 +30,51 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchData();
 
     const selector = document.getElementById('currencyConverterSelector');
-    // Agrega un evento 'change' al selector
     selector.addEventListener('change', function () {
-        // Utiliza un switch para realizar diferentes acciones en función de la opción seleccionada
         switch (selector.value) {
             case 'UF':
-                fillData(Uf);
                 currency = Uf;
+                fillData(Uf);
+                changeTitle("UF", "CLP");
                 break;
             case 'Dolar':
-                fillData(Dolar);
                 currency = Dolar;
+                fillData(Dolar);
+                changeTitle("DÓLAR", "CLP");
                 break;
             case 'Euro':
-                fillData(Euro);
                 currency = Euro;
+                fillData(Euro);
+                changeTitle("EURO", "CLP");
                 break;
             case 'UTM':
-                fillData(Utm);
                 currency = Utm;
+                fillData(Utm);
+                changeTitle("UTM", "CLP");
                 break;
-
         }
     });
 
-    const inputValor = document.getElementById('valor-clp');
+    const inputValor = document.getElementById('valor-input');
 
     inputValor.addEventListener('input', function () {
         changeInput(inputValor.value);
     });
+    
+    function changeTitle(title1, title2){
+        document.querySelector(".title-valor").textContent = title1;
+        document.querySelector(".title-divisa").textContent = title2;
+    }
+
+    function changeInput(val) {
+        let valor = parseFloat(val);
+        let convertValue = valor * currency.valor;
+        document.getElementById('valor-divisa').textContent = formatToPesos(convertValue);
+    }
 
 });
 
-function changeInput(val) {
-    let valor = parseFloat(val);
-    let convertValue = valor * currency.valor;
-    document.getElementById('valor-divisa').textContent = formatToPesos(convertValue);
-}
+
 
 function formatToPesos(valor) {
     // Verifica si el valor es un número válido

@@ -270,7 +270,7 @@ body {
 }
 
 
-.tableConvert #valor-clp {
+.tableConvert #valor-input {
   width: 100%; 
   appearance: none; 
   -webkit-appearance: none;
