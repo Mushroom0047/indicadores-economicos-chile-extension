@@ -29,4 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('tabCharts').addEventListener('click', (e) => {
         openTab(e, 'chartsTab')
     });
+
+    document.getElementById('tabConvert').addEventListener('click', (e) => {
+        openTab(e, 'convertTab')
+    });
 });

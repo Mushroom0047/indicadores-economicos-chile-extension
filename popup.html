@@ -21,6 +21,7 @@
     <div class="tabs">
         <button class="tablinks" id="tabValues">Valores</button>
         <button class="tablinks" id="tabCharts">Gráficos</button>
+        <button class="tablinks" id="tabConvert">Convertidor</button>
       </div>
     
       <!-- Contenido de las pestañas -->
@@ -67,7 +68,7 @@
     
       <div class="tabcontent" id="chartsTab">
           <div class="container-graficos">
-              <select id="currencySelector">
+                <select id="currencySelector">
                   <option value="UF">UF</option>
                   <option value="Dolar">Dólar</option>
                   <option value="Euro">Euro</option>
@@ -80,20 +81,49 @@
                 <div id="data-error-chart" class="data-error"><p>Error al obtener datos</p><i class="gg-plug"></i></div>
         </div>
       </div>
+      <div class="tabcontent" id="convertTab">
+        <div class="container-convert">
+            <select id="currencyConverterSelector">
+                <option value="UF">UF</option>
+                <option value="Dolar">Dólar</option>
+                <option value="Euro">Euro</option>
+                <option value="UTM">UTM</option>
+              </select>
+            <table class="tableConvert">
+                <tr>
+                    <th class="title-valor">Valor CLP</th>
+                    <th></th>
+                    <th class="title-divisa">Valor Divisa</th>
+                </tr>
+                <tr>
+                    <td><input type="number" id="valor-clp" min="1"></td>
+                    <td><button class="btnChangeCurrency"><i class="gg-arrows-exchange-alt"></i></button></td>
+                    <td><p id="valor-divisa">$0</p></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h3 id="info-valor">info valor</h3>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="data-error-converter" class="data-error"><p>Error al obtener datos</p><i class="gg-plug"></i></div>
+      </div>
     <hr>
-    <p class="info">Valores corresponden a la fecha <span id="data-date"></span> </p>
+    <p class="info">Valores con fecha <span id="data-date"></span> | Datos obtenidos de <a href="https://mindicador.cl/" target="_blank">mindicador.cl</a></p>
         <div class="developed-by">
             <div>
                 <a href="https://hectorvaldesm.com/" target="_blank" class="dev">Developed by 🍄</a>
             </div>
             <div class="div__coffe">            
-                <a href='https://ko-fi.com/G2G33MGN8' target='_blank' ><img src="/images/kofi_p_logo_nolabel.png" width="30px" height="30px"/>Buy me a Coffe</a>
+                <a href='https://ko-fi.com/G2G33MGN8' target='_blank' ><img src="/images/kofi_p_logo_nolabel.png" width="30px" height="30px"/>Buy me a Coffee</a>
             </div>
         </div>
         <script src="tabsControl.js"></script>
         <script src="chart.js"></script>
         <script src="graficos.js"></script>
-    <script src="app.js"></script>
+        <script src="conversor.js"></script>
+        <script src="app.js"></script>
 </body>
 
 </html>
