@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loaderContainer = document.querySelector(".loader-container");
+  let Uf, Euro, Dolar, Utm;
+  let currency, valueConverter;
   
   // Mostrar el loader mientras se cargan los datos
   loaderContainer.style.display = "flex";
@@ -8,23 +10,40 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {     
-        document.getElementById("data-date").textContent = convertDate(data.fecha); 
-        document.getElementById("uf").textContent = `UF: ${formatToPesos(data.uf.valor)}`;
-        document.getElementById("dolar").textContent = `Dólar: ${formatToPesos(data.dolar.valor)}`;
-        document.getElementById("euro").textContent = `Euro: ${formatToPesos(data.euro.valor)}`;
-        document.getElementById("ipc").textContent = `IPC: ${data.ipc.valor} %`;
-        document.getElementById("utm").textContent = `UTM: ${formatToPesos(data.utm.valor)}`;
+        const fetchData = data;
+        fillDataValues(fetchData);
+        // fillConverterData(Uf);
+
         loaderContainer.style.display = "none";
       })
       .catch((error) => {
         console.error("Error al obtener datos:", error);
         document.querySelector(".container").style.display = "none";
         document.querySelector("#data-error-values").style.display = "flex";
+        // document.querySelector(".container-convert").style.display = "none";
+        // document.querySelector("#data-error-converter").style.display = "flex";
         // Ocultar el loader en caso de error
       loaderContainer.style.display = "none";
+
       });
 
-  });
+
+
+  function fillDataValues(data){
+    document.getElementById("data-date").textContent = convertDate(data.fecha); 
+    document.getElementById("uf").textContent = `UF: ${formatToPesos(data.uf.valor)}`;
+    document.getElementById("dolar").textContent = `Dólar: ${formatToPesos(data.dolar.valor)}`;
+    document.getElementById("euro").textContent = `Euro: ${formatToPesos(data.euro.valor)}`;
+    document.getElementById("ipc").textContent = `IPC: ${data.ipc.valor} %`;
+    document.getElementById("utm").textContent = `UTM: ${formatToPesos(data.utm.valor)}`;
+    //data for the converter
+    Uf = data.uf;
+    Euro = data.euro;
+    Dolar = data.dolar;
+    Utm = data.utm;
+    currency = Uf;
+    valueConverter = Uf;
+  }
   
 
   function formatToPesos(valor) {
@@ -86,3 +105,62 @@ document.addEventListener("DOMContentLoaded", function () {
     let fechaFormateada = `${dia}-${mes}-${año}`;
     return(fechaFormateada);
   }
+
+
+//   ///Conversor
+//   const selector = document.getElementById('currencyConverterSelector');
+//   selector.addEventListener('change', function () {
+//       switch (selector.value) {
+//           case 'UF':
+//               currency = Uf;
+//               fillConverterData(Uf);
+//               changeTitle("UF", "CLP");
+//               valueConverter = Uf;
+//               break;
+//           case 'Dolar':
+//               currency = Dolar;
+//               fillConverterData(Dolar);
+//               changeTitle("DÓLAR", "CLP");
+//               valueConverter = Dolar;
+//               break;
+//           case 'Euro':
+//               currency = Euro;
+//               fillConverterData(Euro);
+//               changeTitle("EURO", "CLP");
+//               valueConverter = Euro;
+//               break;
+//           case 'UTM':
+//               currency = Utm;
+//               fillConverterData(Utm);
+//               changeTitle("UTM", "CLP");
+//               valueConverter = Utm;
+//               break;
+//       }
+//   });
+
+function fillConverterData(data){
+  document.getElementById('valor-divisa').textContent = formatToPesos(data.valor);
+  document.getElementById('info-valor').textContent = `1 ${data.codigo} = ${formatToPesos(data.valor)}`;
+}
+
+// function changeTitle(txt1, txt2){
+//   document.querySelector('.title-valor').textContent = txt1;
+//   document.querySelector('.title-divisa').textContent = txt2;
+// }
+
+
+// });
+//Cambiar input
+// const btnChangeCurrency = document.querySelector('.btnChangeCurrency');
+// const valorDivisa = document.getElementById('valor-divisa');
+
+// btnChangeCurrency.addEventListener('input', () => {
+//   console.log('input')
+//   let inputValue = parseFloat(btnChangeCurrency.value);
+
+//   if (!isNaN(inputValue)) {
+//     valorDivisa.textContent = valueConverter.valor * inputValue;
+//   } else {
+//     valorDivisa.textContent = '0';
+//   }
+});

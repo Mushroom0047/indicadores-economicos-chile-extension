@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
         openTab(e, 'chartsTab')
     });
 
-    document.getElementById('tabConvert').addEventListener('click', (e) => {
-        openTab(e, 'convertTab')
-    });
+    
+    // document.getElementById('tabConvert').addEventListener('click', (e) => {
+    //     openTab(e, 'convertTab')
+    // });
 });
