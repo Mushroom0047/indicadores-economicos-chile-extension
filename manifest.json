@@ -2,7 +2,13 @@
     "manifest_version": 3,
     "author": "Mu$hrooM",
     "name": "Indicadores Económicos Chile",
-    "version": "1.2.1",
+    "version": "1.2.2",
+    "icons": {
+      "16x16": "images/Icono Ind eco Chile 16.png",
+      "32x32": "images/Icono Ind eco Chile 32.png",
+      "48x48": "images/Icono Ind eco Chile 48.png",
+      "128x128": "images/Icono Ind eco Chile 128.png"
+  },
     "description": "Muestra los valores de UF, Dólar, IPC y UTM",
     "action": {
       "default_popup": "popup.html",
