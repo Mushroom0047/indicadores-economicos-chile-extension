@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loaderContainer = document.querySelector(".loader-container");
-  let Uf, Euro, Dolar, Utm;
+  let Uf, Euro, Dolar, Utm, currencySelected;
   
   // Mostrar el loader mientras se cargan los datos
   loaderContainer.style.display = "flex";
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Utm = data.utm;
     fillConverterData(Uf, 'Uf');
     changeTitle("UF", "CLP");
+    currencySelected = Uf;
   }
   
 
@@ -112,18 +113,22 @@ document.addEventListener("DOMContentLoaded", function () {
           case 'UF':
               fillConverterData(Uf, 'Uf');
               changeTitle("UF", "CLP");
+              currencySelected = Uf;
               break;
           case 'Dolar':
               fillConverterData(Dolar, 'Dólar');
               changeTitle("DÓLAR", "CLP");
+              currencySelected = Dolar;
               break;
           case 'Euro':
               fillConverterData(Euro, 'Euro');
               changeTitle("EURO", "CLP");
+              currencySelected = Euro;
               break;
           case 'UTM':
               fillConverterData(Utm, 'Utm');
               changeTitle("UTM", "CLP");
+              currencySelected = Utm;
               break;
       }
   });
@@ -138,6 +143,14 @@ function changeTitle(txt1, txt2){
   document.querySelector('.title-divisa').textContent = txt2;
 }
 
+inputValue.addEventListener('input', (e) => {
+  calculate(e.target.value, currencySelected);
+});
+
+function calculate(valueInput, valueCurrency){
+  let res = parseFloat(valueInput) * parseFloat(valueCurrency);
+  document.getElementById('valor-divisa').textContent = res;
+}
 
 });
 // Cambiar input
@@ -145,6 +158,5 @@ function changeTitle(txt1, txt2){
 const inputValue = document.getElementById('valor-input');
 const valorDivisa = document.getElementById('valor-divisa');
 
-inputValue.addEventListener('input', (e) => {
-  document.getElementById('valor-divisa').textContent = e.target.value;
-});
+
+
