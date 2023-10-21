@@ -15,9 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 currencySelector.addEventListener("change", function () {
   const selectedValue = currencySelector.value;
+
   switch (selectedValue) {
     case "UF":
-        if(ufData.length == 0){
+        if(ufData.length == 0){        
             fetchData(urlApi+currencys[0], ufData, 'UF');
         }else{
             prepareArrays(ufData, 'UF');

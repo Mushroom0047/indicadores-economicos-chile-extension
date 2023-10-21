@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loaderContainer = document.querySelector(".loader-container");
   let Uf, Euro, Dolar, Utm;
-  let currency, valueConverter;
   
   // Mostrar el loader mientras se cargan los datos
   loaderContainer.style.display = "flex";
@@ -41,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
     Euro = data.euro;
     Dolar = data.dolar;
     Utm = data.utm;
-    currency = Uf;
-    valueConverter = Uf;
+    fillConverterData(Uf, 'Uf');
+    changeTitle("UF", "CLP");
   }
   
 
@@ -51,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (typeof valor !== 'number' || isNaN(valor)) {
       return 'N/A'; // Valor no válido
     }
-  
     // Formatea el número a pesos chilenos
     const formatoPesos = new Intl.NumberFormat('es-CL', {
       style: 'currency',
@@ -107,60 +105,46 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-//   ///Conversor
-//   const selector = document.getElementById('currencyConverterSelector');
-//   selector.addEventListener('change', function () {
-//       switch (selector.value) {
-//           case 'UF':
-//               currency = Uf;
-//               fillConverterData(Uf);
-//               changeTitle("UF", "CLP");
-//               valueConverter = Uf;
-//               break;
-//           case 'Dolar':
-//               currency = Dolar;
-//               fillConverterData(Dolar);
-//               changeTitle("DÓLAR", "CLP");
-//               valueConverter = Dolar;
-//               break;
-//           case 'Euro':
-//               currency = Euro;
-//               fillConverterData(Euro);
-//               changeTitle("EURO", "CLP");
-//               valueConverter = Euro;
-//               break;
-//           case 'UTM':
-//               currency = Utm;
-//               fillConverterData(Utm);
-//               changeTitle("UTM", "CLP");
-//               valueConverter = Utm;
-//               break;
-//       }
-//   });
+  ///Conversor
+  const selector = document.getElementById('currencyConverterSelector');
+  selector.addEventListener('change', function () {
+      switch (selector.value) {
+          case 'UF':
+              fillConverterData(Uf, 'Uf');
+              changeTitle("UF", "CLP");
+              break;
+          case 'Dolar':
+              fillConverterData(Dolar, 'Dólar');
+              changeTitle("DÓLAR", "CLP");
+              break;
+          case 'Euro':
+              fillConverterData(Euro, 'Euro');
+              changeTitle("EURO", "CLP");
+              break;
+          case 'UTM':
+              fillConverterData(Utm, 'Utm');
+              changeTitle("UTM", "CLP");
+              break;
+      }
+  });
 
-function fillConverterData(data){
+function fillConverterData(data, divisa){
   document.getElementById('valor-divisa').textContent = formatToPesos(data.valor);
-  document.getElementById('info-valor').textContent = `1 ${data.codigo} = ${formatToPesos(data.valor)}`;
+  document.getElementById('info-valor').textContent = `1 ${divisa} = ${formatToPesos(data.valor)}`;
 }
 
-// function changeTitle(txt1, txt2){
-//   document.querySelector('.title-valor').textContent = txt1;
-//   document.querySelector('.title-divisa').textContent = txt2;
-// }
+function changeTitle(txt1, txt2){
+  document.querySelector('.title-valor').textContent = txt1;
+  document.querySelector('.title-divisa').textContent = txt2;
+}
 
 
-// });
-//Cambiar input
-// const btnChangeCurrency = document.querySelector('.btnChangeCurrency');
-// const valorDivisa = document.getElementById('valor-divisa');
+});
+// Cambiar input
+// const btnChangecurrency = document.querySelector('.btnChangeCurrency');
+const inputValue = document.getElementById('valor-input');
+const valorDivisa = document.getElementById('valor-divisa');
 
-// btnChangeCurrency.addEventListener('input', () => {
-//   console.log('input')
-//   let inputValue = parseFloat(btnChangeCurrency.value);
-
-//   if (!isNaN(inputValue)) {
-//     valorDivisa.textContent = valueConverter.valor * inputValue;
-//   } else {
-//     valorDivisa.textContent = '0';
-//   }
+inputValue.addEventListener('input', (e) => {
+  document.getElementById('valor-divisa').textContent = e.target.value;
 });

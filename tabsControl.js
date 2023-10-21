@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     
-    // document.getElementById('tabConvert').addEventListener('click', (e) => {
-    //     openTab(e, 'convertTab')
-    // });
+    document.getElementById('tabConvert').addEventListener('click', (e) => {
+        openTab(e, 'convertTab')
+    });
 });

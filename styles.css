@@ -251,11 +251,12 @@ body {
 .tableConvert {
   border-collapse: collapse;
   width: 100%; 
+  margin-top: 15px;
 }
 
 .tableConvert th, .tableConvert td {
   color: var(--c-white);
-  padding: 10px;
+  /* padding: 10px; */
   text-align: center;
   width: 33.33%; 
 }
