@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loaderContainer = document.querySelector(".loader-container");
+  const container = document.querySelector(".container");
+  const dataErrorValues = document.querySelector("#data-error-values");
+  const copyButtons = document.querySelectorAll(".copy-button");
+  const selector = document.getElementById('currencyConverterSelector');
+  const valorInput = document.getElementById('valor-input');
+  const valorDivisa = document.getElementById('valor-divisa');
+  // Otras variables
   let Uf, Euro, Dolar, Utm, currencySelected;
   
   // Mostrar el loader mientras se cargan los datos
@@ -11,22 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {     
         const fetchData = data;
         fillDataValues(fetchData);
-        // fillConverterData(Uf);
-
         loaderContainer.style.display = "none";
       })
       .catch((error) => {
         console.error("Error al obtener datos:", error);
-        document.querySelector(".container").style.display = "none";
-        document.querySelector("#data-error-values").style.display = "flex";
-        // document.querySelector(".container-convert").style.display = "none";
-        // document.querySelector("#data-error-converter").style.display = "flex";
-        // Ocultar el loader en caso de error
-      loaderContainer.style.display = "none";
-
+        container.style.display = "none";
+        dataErrorValues.style.display = "flex";
+        loaderContainer.style.display = "none";
       });
-
-
 
   function fillDataValues(data){
     document.getElementById("data-date").textContent = convertDate(data.fecha); 
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
     changeTitle("UF", "CLP");
     currencySelected = Uf;
   }
-  
 
   function formatToPesos(valor) {
     // Verifica si el valor es un número válido
@@ -62,25 +60,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   //Botones para copiar datos
-  const copyButtons = document.querySelectorAll(".copy-button");
   copyButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const container = button.parentElement;
-      let textSeparated = container.querySelector("h3").textContent.split(":");
+      const textSeparated = container.querySelector("h3").textContent.split(":");
       const textToCopy = textSeparated[1];
       copyToClipboard(textToCopy);
-
-    // Ocultar el ícono y mostrar el texto "Copiado"
-    const icon = container.querySelector(".gg-copy");
-    const copiedText = container.querySelector(".copied-text");
-    icon.style.display = "none";
-    copiedText.style.display = "inline";
-
-     // Configurar un temporizador para restaurar el estado original
-     setTimeout(() => {
-      icon.style.display = "block";
-      copiedText.style.display = "none";
-    }, 3000); 
+  
+      const icon = container.querySelector(".gg-copy");
+      const copiedText = container.querySelector(".copied-text");
+      icon.style.display = "none";
+      copiedText.style.display = "inline";
+  
+      setTimeout(() => {
+        icon.style.display = "block";
+        copiedText.style.display = "none";
+      }, 3000);
     });
   });
 
@@ -93,42 +88,37 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.removeChild(textarea);
   }
 
-  function convertDate(date){
-    let fechaOriginal = new Date(date);
-    // Extraer día, mes y año de la fecha
-    let dia = fechaOriginal.getUTCDate().toString().padStart(2, "0"); // Agregar ceros a la izquierda si es necesario
-    let mes = (fechaOriginal.getUTCMonth() + 1).toString().padStart(2, "0"); // El mes está basado en 0, así que sumamos 1
-    let año = fechaOriginal.getUTCFullYear();
-
-    // Formatear la fecha en "dd-mm-AAAA"
-    let fechaFormateada = `${dia}-${mes}-${año}`;
-    return(fechaFormateada);
+  function convertDate(date) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Intl.DateTimeFormat('es-CL', options).format(new Date(date));
   }
 
-
   ///Conversor
-  const selector = document.getElementById('currencyConverterSelector');
   selector.addEventListener('change', function () {
       switch (selector.value) {
           case 'UF':
               fillConverterData(Uf, 'Uf');
               changeTitle("UF", "CLP");
               currencySelected = Uf;
+              calculate(valorInput.value, currencySelected.valor);
               break;
           case 'Dolar':
               fillConverterData(Dolar, 'Dólar');
               changeTitle("DÓLAR", "CLP");
               currencySelected = Dolar;
+              calculate(valorInput.value, currencySelected.valor);
               break;
           case 'Euro':
               fillConverterData(Euro, 'Euro');
               changeTitle("EURO", "CLP");
               currencySelected = Euro;
+              calculate(valorInput.value, currencySelected.valor);
               break;
           case 'UTM':
               fillConverterData(Utm, 'Utm');
               changeTitle("UTM", "CLP");
               currencySelected = Utm;
+              calculate(valorInput.value, currencySelected.valor);
               break;
       }
   });
@@ -143,20 +133,16 @@ function changeTitle(txt1, txt2){
   document.querySelector('.title-divisa').textContent = txt2;
 }
 
-inputValue.addEventListener('input', (e) => {
-  calculate(e.target.value, currencySelected);
+valorInput.addEventListener('input', (e) => {
+  let value = e.target.value == ''? 0: e.target.value; 
+  calculate(value, currencySelected.valor);
 });
 
 function calculate(valueInput, valueCurrency){
   let res = parseFloat(valueInput) * parseFloat(valueCurrency);
-  document.getElementById('valor-divisa').textContent = res;
+  valorDivisa.textContent = formatToPesos(res);
 }
 
 });
-// Cambiar input
-// const btnChangecurrency = document.querySelector('.btnChangeCurrency');
-const inputValue = document.getElementById('valor-input');
-const valorDivisa = document.getElementById('valor-divisa');
-
 
 
