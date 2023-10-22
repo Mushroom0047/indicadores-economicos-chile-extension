@@ -4,8 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const dataErrorValues = document.querySelector("#data-error-values");
   const copyButtons = document.querySelectorAll(".copy-button");
   const selector = document.getElementById('currencyConverterSelector');
-  const valorInput = document.getElementById('valor-input');
-  const valorDivisa = document.getElementById('valor-divisa');
+  let titleCurrency = document.querySelector('.title-divisa');
+  const inputClp = document.getElementById('input-clp');
+  const inputCurrency = document.getElementById('input-currency');
+
   // Otras variables
   let Uf, Euro, Dolar, Utm, currencySelected;
   
@@ -36,12 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("utm").textContent = `UTM: ${formatToPesos(data.utm.valor)}`;
     //data for the converter
     Uf = data.uf;
-    Euro = data.euro;
     Dolar = data.dolar;
+    Euro = data.euro;
     Utm = data.utm;
-    fillConverterData(Uf, 'Uf');
-    changeTitle("UF", "CLP");
-    currencySelected = Uf;
+    updateConverterData(Uf.valor, 'UF');
   }
 
   function formatToPesos(valor) {
@@ -93,56 +93,43 @@ document.addEventListener("DOMContentLoaded", function () {
     return new Intl.DateTimeFormat('es-CL', options).format(new Date(date));
   }
 
-  ///Conversor
+  //*Conversor code
   selector.addEventListener('change', function () {
       switch (selector.value) {
           case 'UF':
-              fillConverterData(Uf, 'Uf');
-              changeTitle("UF", "CLP");
-              currencySelected = Uf;
-              calculate(valorInput.value, currencySelected.valor);
+            updateConverterData(Uf.valor, 'UF');
               break;
           case 'Dolar':
-              fillConverterData(Dolar, 'Dólar');
-              changeTitle("DÓLAR", "CLP");
-              currencySelected = Dolar;
-              calculate(valorInput.value, currencySelected.valor);
+            updateConverterData(Dolar.valor, 'DÓLAR');
               break;
           case 'Euro':
-              fillConverterData(Euro, 'Euro');
-              changeTitle("EURO", "CLP");
-              currencySelected = Euro;
-              calculate(valorInput.value, currencySelected.valor);
+            updateConverterData(Euro.valor, 'EURO');
               break;
           case 'UTM':
-              fillConverterData(Utm, 'Utm');
-              changeTitle("UTM", "CLP");
-              currencySelected = Utm;
-              calculate(valorInput.value, currencySelected.valor);
+            updateConverterData(Utm.valor, 'UTM');
               break;
       }
   });
 
-function fillConverterData(data, divisa){
-  document.getElementById('valor-divisa').textContent = formatToPesos(data.valor);
-  document.getElementById('info-valor').textContent = `1 ${divisa} = ${formatToPesos(data.valor)}`;
+function updateConverterData(currencyValue, currencyName){
+  document.getElementById('info-valor').textContent = `1 ${currencyName} = ${formatToPesos(currencyValue)}`;
+  titleCurrency.textContent = currencyName;
+  currencySelected = currencyValue;
+  inputCurrency.value = (parseFloat(inputClp.value) / currencySelected).toFixed(2);
 }
 
-function changeTitle(txt1, txt2){
-  document.querySelector('.title-valor').textContent = txt1;
-  document.querySelector('.title-divisa').textContent = txt2;
-}
-
-valorInput.addEventListener('input', (e) => {
-  let value = e.target.value == ''? 0: e.target.value; 
-  calculate(value, currencySelected.valor);
+//? inputs converter
+inputClp.addEventListener('input', (e) => {
+  let value = e.target.value == ''? 0: parseFloat(e.target.value); 
+  inputCurrency.value = (value / currencySelected).toFixed(2);
 });
 
-function calculate(valueInput, valueCurrency){
-  let res = parseFloat(valueInput) * parseFloat(valueCurrency);
-  valorDivisa.textContent = formatToPesos(res);
-}
-
+inputCurrency.addEventListener('input', (e) => {
+  let value = e.target.value == ''? 0: parseFloat(e.target.value); 
+  inputClp.value = (value * currencySelected).toFixed(2);
 });
+
+//!FIN DOM
+ });
 
 

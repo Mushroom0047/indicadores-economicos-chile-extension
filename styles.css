@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 :root{
   --c-primary: #3BBA9C;
   --c-secundary: #2E3047;
@@ -12,6 +13,10 @@ body {
     background-color: var(--c-background);
   }
 
+h3{
+  font-size: 15px;
+  font-family: 'Nanum Gothic', sans-serif;
+}
 .titulo-ext{
   display: flex;
   flex-flow: row nowrap;
@@ -256,23 +261,17 @@ body {
 
 .tableConvert th, .tableConvert td {
   color: var(--c-white);
-  /* padding: 10px; */
   text-align: center;
-  width: 33.33%; 
+  width: 50%; 
 }
 #info-valor{
   font-size: 22px;
   color: var(--c-primary);
-  margin: 0px;
-}
-#valor-divisa{
-  font-weight: bold;
-  font-size: 18px;
+  padding: 6px 0px;
 }
 
-
-.tableConvert #valor-input {
-  width: 100%; 
+#input-clp, #input-currency {
+  width: 80%; 
   appearance: none; 
   -webkit-appearance: none;
   -moz-appearance: textfield;
@@ -280,48 +279,12 @@ body {
   font-size: 18px;
 }
 
-
 .btnChangeCurrency{
   background-color: transparent;
   outline: none;
   border: none;
   cursor: pointer;
 }
-
-.gg-arrows-exchange-alt {
-  color: var(--c-primary);
-  box-sizing: border-box;
-  position: relative;
-  display: block;
-  transform: scale(var(--ggs,1));
-  width: 16px;
-  height: 14px
- }
- 
- .gg-arrows-exchange-alt::after,
- .gg-arrows-exchange-alt::before {
-  content: "";
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  height: 2px;
-  background: currentColor;
-  border-radius: 4px
- }
- 
- .gg-arrows-exchange-alt::before {
-  width: 6px;
-  transform: rotate(-45deg);
-  box-shadow: -2px -13px 0;
-  right: 0;
-  top: 10px
- }
- 
- .gg-arrows-exchange-alt::after {
-  width: 12px;
-  box-shadow: 4px 4px 0;
-  top: 4px
- } 
 
  a{
   color: var(--c-primary);
