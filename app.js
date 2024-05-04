@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   const loaderContainer = document.querySelector(".loader-container");
   const container = document.querySelector(".container");
@@ -7,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let titleCurrency = document.querySelector('.title-divisa');
   const inputClp = document.getElementById('input-clp');
   const inputCurrency = document.getElementById('input-currency');
+
+  //Comprobar datos
+  guardarFechaLocal();
 
   // Otras variables
   let Uf, Euro, Dolar, Utm, currencySelected;
