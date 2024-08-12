@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const formatoPesos = new Intl.NumberFormat('es-CL', {
       style: 'currency',
       currency: 'CLP',
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 2,
     });
   
     return formatoPesos.format(valor);
